@@ -1,0 +1,26 @@
+---
+- name: Installs homebrew on a UNIX machine
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install homebrew (Linux)
+      ansible.builtin.shell:
+        cmd: "/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'"
+        creates: "/home/linuxbrew/.linuxbrew/bin/brew"
+      when: ansible_facts.os_family == 'Linux'
+
+    - name: Install Homebrew if not installed (macOS)
+      ansible.builtin.shell:
+        cmd: "/bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'"
+        creates: /opt/homebrew/bin/brew
+      when: ansible_facts.os_family == 'Darwin'
+
+    - name: Check if homebrew was installed successfully
+      ansible.builtin.command: which homebrew
+      register: homebrew_check
+      changed_when: false
+
+    - name: Fail playbook if homebrew installation fails
+      ansible.builtin.fail:
+        msg: "Homebrew installation failed"
+      when: homebrew_check.stdout == ""

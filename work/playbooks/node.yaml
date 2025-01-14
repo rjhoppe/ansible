@@ -1,0 +1,61 @@
+---
+- name: Installs Node and related packages
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Download nvm install script
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh"
+        dest: "{{ ansible_env.HOME }}}/.nvm/nvm.sh"
+        mode: "0755"
+
+    - name: Install nvm
+      ansible.builtin.command:
+        cmd: "bash {{ ansible_env.HOME }}/.nvm/nvm.sh"
+      register: nvm_install
+      changed_when: nvm_install.rc == 0 and "'installing nvm' in nvm_install.stdout"
+
+    - name: Check if nvm is installed
+      ansible.builtin.command: nvm --version
+      register: nvm_check
+      changed_when: false
+
+    - name: Install latest Node version
+      ansible.builtin.command: |
+        nvm install node
+      when: nvm_check.rc != 0
+      register: node_install
+      changed_when: node_install.rc == 0 and "'installing node' in node_install.stdout"
+
+    - name: Check if node is installed
+      ansible.builtin.command: which node
+      register: node_check
+      changed_when: false
+
+    - name: Fail playbook if node not successfully installed
+      ansible.builtin.fail:
+        msg: "Node installation failed"
+      when: node_check.rc != 0
+
+    - name: Install pnpm (Linux)
+      ansible.builtin.package:
+        name: pnpm
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Check if homebrew is installed
+      ansible.builtin.command: which homebrew
+      register: homebrew_check
+      changed_when: false
+      when: ansible_facts['os_family'] == 'Darwin'
+
+    - name: Fail playbook if homebrew is not found
+      ansible.builtin.fail:
+        msg: "Homebrew installation failed"
+      when: homebrew_check.stdout == "" and ansible_facts['os_family'] == 'Darwin'
+
+    - name: Install pnpm (macOS)
+      community.general.homebrew:
+        name: pnpm
+        state: present
+      when: ansible_facts['os_family'] == 'Darwin'

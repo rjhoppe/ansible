@@ -1,0 +1,21 @@
+---
+- name: Installs Linux packages
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install CLI utils (Linux)
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - wget
+        - curl
+        - nano
+        - fzf
+        - jq
+        - git
+        - build-essential
+        - htop
+        - tree
+        - gpg
+      when: ansible_facts['os_family'] == 'Debian'

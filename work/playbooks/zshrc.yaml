@@ -1,0 +1,21 @@
+---
+- name: Copies template .zshrc file to local machine
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Check if zsh was installed successfully
+      ansible.builtin.command: which zsh
+      register: zsh_check
+      changed_when: false
+      when: ansible_facts.os_family == 'Debian' | ansible_facts.os_family == 'Darwin'
+
+    - name: Fail playbook if zsh installation fails
+      ansible.builtin.fail:
+        msg: "zsh installation failed"
+      when: zsh_check.stdout == "" # Empty -> i.e. zsh not found
+
+    - name: Copy .zshrc file to the local directory
+      ansible.builtin.copy:
+        src: ./files/.zshrc
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        mode: "0644"

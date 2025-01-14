@@ -1,0 +1,48 @@
+# Ignore version control directories
+.git
+.gitignore
+
+# Ignore temporary or cache files
+*.swp
+*.bak
+*.tmp
+*.log
+
+# Ignore Python-specific files and directories
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+venv/
+.venv/*
+env/
+*.env
+
+# Ignore build and temporary directories
+build/
+dist/
+*.egg-info/
+
+# Ignore Ansible-specific files (if you have them)
+*.retry
+
+# Ignore Docker-related files
+Dockerfile*
+.dockerignore
+
+# Ignore sensitive information (you can exclude private keys, passwords, etc.)
+secrets/
+*.pem
+*.key
+*.crt
+
+# Ignore any other files or directories you don't want in your Docker image
+*.md
+notes.txt
+
+# Other
+unfinished/
+.vscode/
+legacy/
+init.sh

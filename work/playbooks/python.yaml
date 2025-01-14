@@ -1,0 +1,31 @@
+---
+- name: Installs azure-cli on a UNIX machine
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Install Python and pip (Linux)
+      ansible.builtin.package:
+        name:
+          - python3.12
+          - python3-pip
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Check if homebrew is installed
+      ansible.builtin.command: which homebrew
+      register: homebrew_check
+      changed_when: false
+      when: ansible_facts['os_family'] == 'Darwin'
+
+    - name: Fail playbook if homebrew installation fails
+      ansible.builtin.fail:
+        msg: "Homebrew installation failed"
+      when: ansible_facts['os_family'] == 'Darwin' and homebrew_check.stdout == ""
+
+    - name: Install Python and pip (macOS)
+      community.general.homebrew:
+        name:
+          - python@3.12
+          - pip
+        state: present
+      when: ansible_facts['os_family'] == 'Darwin'

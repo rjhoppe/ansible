@@ -74,9 +74,6 @@ alias intj='~/.local/share/JetBrains/Toolbox/apps/intellij-idea-community-editio
 
 # shell integrations
 eval "$(fzf --zsh)"
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 export NVM_DIR="$HOME/.nvm"

@@ -1,0 +1,19 @@
+---
+- name: Installs azure-cli on a UNIX machine
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Check if homebrew is installed
+      ansible.builtin.command: which homebrew
+      register: homebrew_check
+      changed_when: false
+
+    - name: Fail playbook if homebrew installation fails
+      ansible.builtin.fail:
+        msg: "Homebrew installation failed"
+      when: homebrew_check.stdout == ""
+
+    - name: Install Azure CLI
+      community.general.homebrew:
+        name: azure-cli
+        state: present

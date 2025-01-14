@@ -1,9 +1,21 @@
-## Simple Dockerfile to test playbook in Linux
+FROM python:3.12-slim
+ENV LANG=C.UTF-8 \
+    DEBIAN_FRONTEND=noninteractive \
+    PIP_NO_CACHE_DIR=1
 
-FROM ubuntu:focal
-ARG TAGS
-WORKDIR /usr/local/bin
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y software-properties-common && apt-add-repository -y ppa:ansible/ansible && apt update && apt install -y curl git ansible build-essential
-COPY . .
-CMD ["sh", "-c", "ansible-playbook $TAGS local.yml"]
+RUN : \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && :
+
+WORKDIR /ansible
+
+COPY requirements.txt /ansible/
+RUN pip install -r /ansible/requirements.txt
+
+COPY . /ansible/
+
+WORKDIR /ansible/playbooks
+CMD ["ansible-playbook", "-i", "/ansible/hosts", "/ansible/playbooks/main.yaml"]

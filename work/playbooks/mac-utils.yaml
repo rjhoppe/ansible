@@ -1,0 +1,42 @@
+---
+- name: Installs CLI utils for macOS
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Check if homebrew is installed
+      ansible.builtin.command: which homebrew
+      register: homebrew_check
+      changed_when: false
+
+    - name: Fail playbook if homebrew is not installed
+      ansible.builtin.fail:
+        msg: "Homebrew installation failed"
+      when: homebrew_check.stdout == ""
+
+    - name: Install CLI utils (macOS)
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - wget
+        - curl
+        - nano
+        - fzf
+        - jq
+        - git
+        - htop
+        - tree
+        - coreutils
+      when: ansible_facts['os_family'] == 'Darwin'
+
+    - name: Check if XCode is installed (macOS)
+      ansible.builtin.stat:
+        path: /Applications/Xcode.app
+      register: xcode_check
+      when: ansible_facts['os_family'] == 'Darwin'
+
+    - name: Install GCC if XCode is not installed (macOS)
+      community.general.homebrew:
+        name: gcc
+        state: present
+      when: not xcode_check.stat.exists and ansible_facts['os_family'] == 'Darwin'
