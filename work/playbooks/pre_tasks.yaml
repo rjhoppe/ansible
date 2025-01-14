@@ -1,0 +1,9 @@
+---
+- name: Installs Go on a UNIX machine
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Update apt cache (Linux)
+      ansible.builtin.package:
+        update_cache: true

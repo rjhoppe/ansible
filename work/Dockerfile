@@ -18,4 +18,4 @@ RUN pip install -r /ansible/requirements.txt
 COPY . /ansible/
 
 WORKDIR /ansible/playbooks
-CMD ["ansible-playbook", "-i", "/ansible/hosts", "/ansible/playbooks/main.yaml"]
+CMD ["ansible-playbook", "-i", "/ansible/hosts", "/ansible/playbooks/linux_main.yaml"]
