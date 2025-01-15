@@ -29,6 +29,7 @@
 
     - name: Copy tmux.conf file
       ansible.builtin.copy:
-        src: ./files/.tmux.conf
+        src: /ansible/files/.tmux.conf
         dest: "{{ ansible_env.HOME }}/.tmux.conf"
+        remote_src: true
         mode: "0644"

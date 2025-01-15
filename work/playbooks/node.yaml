@@ -6,12 +6,12 @@
     - name: Download nvm install script
       ansible.builtin.get_url:
         url: "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh"
-        dest: "{{ ansible_env.HOME }}}/.nvm/nvm.sh"
+        dest: "/tmp/nvm.sh"
         mode: "0755"
 
     - name: Install nvm
       ansible.builtin.command:
-        cmd: "bash {{ ansible_env.HOME }}/.nvm/nvm.sh"
+        cmd: "bash /tmp/nvm.sh"
       register: nvm_install
       changed_when: nvm_install.rc == 0 and "'installing nvm' in nvm_install.stdout"
 
@@ -42,17 +42,6 @@
         name: pnpm
         state: present
       when: ansible_facts['os_family'] == 'Debian'
-
-    - name: Check if homebrew is installed
-      ansible.builtin.command: which homebrew
-      register: homebrew_check
-      changed_when: false
-      when: ansible_facts['os_family'] == 'Darwin'
-
-    - name: Fail playbook if homebrew is not found
-      ansible.builtin.fail:
-        msg: "Homebrew installation failed"
-      when: homebrew_check.stdout == "" and ansible_facts['os_family'] == 'Darwin'
 
     - name: Install pnpm (macOS)
       community.general.homebrew:

@@ -1,5 +1,5 @@
 ---
-- name: Installs Go on a UNIX machine
+- name: Preparing package manager for Linux config
   hosts: localhost
   become: true
 
@@ -7,3 +7,4 @@
     - name: Update apt cache (Linux)
       ansible.builtin.package:
         update_cache: true
+      when: ansible_facts['os_family'] == 'Debian'

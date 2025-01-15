@@ -7,7 +7,7 @@
       ansible.builtin.command: which zsh
       register: zsh_check
       changed_when: false
-      when: ansible_facts.os_family == 'Debian' | ansible_facts.os_family == 'Darwin'
+      when: ansible_facts['os_family'] in ['Debian', 'Darwin']
 
     - name: Fail playbook if zsh installation fails
       ansible.builtin.fail:
@@ -16,6 +16,7 @@
 
     - name: Copy .zshrc file to the local directory
       ansible.builtin.copy:
-        src: ./files/.zshrc
+        src: /ansible/files/.zshrc
         dest: "{{ ansible_env.HOME }}/.zshrc"
+        remote_src: true
         mode: "0644"
