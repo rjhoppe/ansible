@@ -1,10 +1,9 @@
 ---
 - name: Installs CLI utils for macOS
   hosts: localhost
-  become: true
   tasks:
     - name: Check if homebrew is installed
-      ansible.builtin.command: which homebrew
+      ansible.builtin.command: which brew
       register: homebrew_check
       changed_when: false
 

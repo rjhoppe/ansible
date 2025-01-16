@@ -1,3 +1,4 @@
+# Dockerfile with Python already installed -> Quicker for testing playbooks
 FROM python:3.12-slim
 ENV LANG=C.UTF-8 \
     DEBIAN_FRONTEND=noninteractive \
@@ -18,4 +19,4 @@ RUN pip install -r /ansible/requirements.txt
 COPY . /ansible/
 
 WORKDIR /ansible/playbooks
-CMD ["ansible-playbook", "-i", "/ansible/hosts", "/ansible/playbooks/linux_main.yaml"]
+CMD ["ansible-playbook", "-i", "/ansible/hosts", "/ansible/docker_main.yaml"]

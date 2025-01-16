@@ -1,0 +1,8 @@
+Docker cmds:
+
+For custom image names
+docker build -f py.Dockerfile -t ansible-playbook-test .
+docker build -f deb.Dockerfile -t ansible-playbook-test .
+
+docker exec -i -t ansible-playbook-test /bin/bash
+docker container prune -f && docker image prune -f

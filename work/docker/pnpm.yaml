@@ -1,0 +1,18 @@
+---
+- name: Install npm and pnpm on Ubuntu/Debian
+  hosts: localhost
+  tasks:
+    - name: Install pnpm
+      community.general.npm:
+        name: pnpm
+        global: true
+
+    - name: Verify pnpm installation
+      ansible.builtin.command:
+        cmd: "pnpm --version"
+      register: pnpm_version
+      changed_when: false
+
+    - name: Show pnpm version
+      ansible.builtin.debug:
+        msg: "pnpm version is {{ pnpm_version.stdout }}"

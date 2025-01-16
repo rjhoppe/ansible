@@ -1,0 +1,16 @@
+---
+- name: Installs Go on a UNIX machine
+  hosts: localhost
+  tasks:
+    - name: Download gvm dependencies
+      ansible.builtin.package:
+        name:
+          - bison
+        state: present
+
+    # - name: Install gvm
+
+    - name: Install Go via gvm
+      community.general.homebrew:
+        name: go
+        state: present

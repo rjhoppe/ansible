@@ -6,17 +6,21 @@
       ansible.builtin.get_url:
         url: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
         dest: /tmp/vscode.deb
-        mode: "0755"
-      when: ansible_facts['os_family'] == 'Debian'
+        mode: "0644"
+
+    - name: Verify that the .deb package is downloaded
+      ansible.builtin.stat:
+        path: /tmp/vscode.deb
+      register: vscode_deb
+      failed_when: not vscode_deb.stat.exists
 
     - name: Install VSCode package
       ansible.builtin.package:
         name: /tmp/vscode.deb
         state: present
-      when: ansible_facts['os_family'] == 'Debian'
+      become: true
 
     - name: Clean up downloaded VSCode package
       ansible.builtin.file:
         path: /tmp/vscode.deb
         state: absent
-      when: ansible_facts['os_family'] == 'Debian'

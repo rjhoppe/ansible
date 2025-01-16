@@ -1,10 +1,9 @@
 ---
 - name: Installs GUI programs for macOS via homebrew casks
   hosts: localhost
-  become: true
   tasks:
     - name: Check if homebrew is installed
-      ansible.builtin.command: which homebrew
+      ansible.builtin.command: which brew
       register: homebrew_check
       changed_when: false
 
@@ -13,10 +12,9 @@
         msg: "Homebrew installation failed"
       when: homebrew_check.stdout == "" # Empty -> i.e. homebrew not found
 
-    - name: Install homebrew casks
+    - name: Install homebrew casks  # noqa ignore-errors
       community.general.homebrew_cask:
         name: "{{ item }}"
-        state: present
       loop:
         - google-chrome
         - visual-studio-code
@@ -26,9 +24,9 @@
         - bitwarden
         - docker
         - viscosity
-        - azure-data-studios
+        - azure-data-studio
         - microsoft-teams
         - zoom
         - font-jetbrains-mono
-        - amazon-music
       when: ansible_facts['os_family'] == 'Darwin'
+      ignore_errors: true # noqa 204

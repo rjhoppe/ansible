@@ -6,12 +6,10 @@
       ansible.builtin.command: which zsh
       register: zsh_check
       changed_when: false
-      when: ansible_facts.os_family == 'Debian'
 
     - name: Fail playbook if zsh is not installed
       ansible.builtin.fail:
         msg: "zsh not found"
-      when: zsh_check.stdout == "" and ansible_facts.os_family == 'Debian'
 
     - name: Copy .p10k.zsh file to the local directory
       ansible.builtin.copy:

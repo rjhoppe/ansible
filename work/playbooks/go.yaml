@@ -1,7 +1,6 @@
 ---
 - name: Installs Go on a UNIX machine
   hosts: localhost
-  become: true
   tasks:
     - name: Install Go (UNIX)
       community.general.homebrew:

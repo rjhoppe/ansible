@@ -1,7 +1,6 @@
 ---
 - name: Installs Node and related packages
   hosts: localhost
-  become: true
   tasks:
     - name: Download pnpm installation script (Linux)
       ansible.builtin.get_url:
