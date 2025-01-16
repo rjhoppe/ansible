@@ -5,6 +5,20 @@ xcode-select --install
 echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Check if installation was successful
+if [[ $(uname -m) == 'arm64' ]]; then
+    BREW_PATH="/opt/homebrew/bin/brew"
+else
+    BREW_PATH="/usr/local/bin/brew"
+fi
+
+if [ ! -f "$BREW_PATH" ]; then
+    echo "Homebrew installation failed - brew executable not found at $BREW_PATH"
+    exit 1
+fi
+
+echo "Homebrew installation completed. Brew path: $BREW_PATH"
+
 echo "Installing ansible dependencies..."
 brew install openssl readline sqlite3 xz zlib tcl-tk@8 git curl wget
 
