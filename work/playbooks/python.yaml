@@ -1,5 +1,6 @@
 ---
-- name: Installs azure-cli on a UNIX machine
+# Whole playbook is unused because Python is installed during the init scripts
+- name: Installs Python on a UNIX machine
   hosts: localhost
   become: true
   tasks:

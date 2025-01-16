@@ -18,12 +18,9 @@
         name: "{{ item }}"
         state: present
       loop:
-        - wget
-        - curl
         - nano
         - fzf
         - jq
-        - git
         - htop
         - tree
         - coreutils
@@ -35,6 +32,7 @@
       register: xcode_check
       when: ansible_facts['os_family'] == 'Darwin'
 
+    # This is probably OBE, as the xcode is being installed in the mac_init script
     - name: Install GCC if XCode is not installed (macOS)
       community.general.homebrew:
         name: gcc

@@ -8,12 +8,9 @@
         name: "{{ item }}"
         state: present
       loop:
-        - wget
-        - curl
         - nano
         - fzf
         - jq
-        - git
         - build-essential
         - htop
         - tree

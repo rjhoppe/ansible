@@ -1,38 +1,13 @@
-For Windows deploy, first install WSL and reboot machine
-```
-wsl --install
-```
+Steps to bootstrap new workstation
 
-Launch up WSL and install Ansible
-```
-sudo apt update
-sudo apt install ansible
-```
+1. Pull out the relevant files for your OS into the workdir
 
-PowerShell cmds to enable Ansible:
+Each deployment has 3 related scripts:
+* env_OS_main -> local_linux_main
+* env_OS_init -> local_linux_init
+* env_OS_pyenv -> local_linux_pyenv
 
-Enable WinRM
-```
-Enable-PSRemoting -Force
-```
+The env_OS_init and env_OS_pyenv scripts are called from the env_OS_main script
 
-Allow Basic Authentication (necessary for Ansible)
-```
-Set-Item WSMan:\localhost\Client\AllowUnencrypted $true
-Set-Item WSMan:\localhost\Client\Auth\Basic $true
-```
-
-Set up WinRM listener for HTTP (you can configure HTTPS for more security)
-```
-New-Item -Path WSMan:\localhost\Listener -Transport HTTP -Address * -Port 5985
-```
-
-Create new firewall rule for WinRM:
-```
-New-NetFirewallRule -Name "WinRM_HTTP_in" -DisplayName "WinRM HTTP Server (Allow)" -Enabled True -Protocol TCP -Direction Inbound -Action Allow -LocalPort 5985
-```
-
-To run playbook:
-```
-ansible-playbook -i inventory.ini install_software.yml
-```
+2. Grant the script files the necessary execution permissions
+3. Run the env_OS_main.sh file
