@@ -21,5 +21,7 @@ else
     exit 1
 fi
 
+# Make zsh the default shell?
+
 cd playbooks
 ansible-playbook -i /ansible/hosts /ansible/playbooks/linux_main.yaml

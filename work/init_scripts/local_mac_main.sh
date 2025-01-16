@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 handle_reload() {
-    # Source bashrc
-    if [ -f ~/.bashrc ]; then
-        echo "Reloading bashrc..."
-        source ~/.bashrc
+    # Source zshrc
+    if [ -f ~/.zshrc ]; then
+        echo "Reloading zshrc..."
+        source ~/.zshrc
     fi
     
     # Continue with second script
