@@ -5,6 +5,10 @@ xcode-select --install
 echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+echo >> /Users/rhoppe/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/rhoppe/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Check if installation was successful
 if [[ $(uname -m) == 'arm64' ]]; then
     BREW_PATH="/opt/homebrew/bin/brew"
