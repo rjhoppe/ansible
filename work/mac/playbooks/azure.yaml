@@ -1,0 +1,8 @@
+---
+- name: Installs azure-cli on a UNIX machine
+  hosts: localhost
+  tasks:
+    - name: Install Azure CLI
+      community.general.homebrew:
+        name: azure-cli
+        state: present

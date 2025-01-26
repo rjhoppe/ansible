@@ -1,0 +1,37 @@
+---
+- name: Installs programs for Windows using Chocolatey
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Check if Chocolatey is installed
+      ansible.windows.win_command: choco -v
+      register: chocolatey_installed
+      when: ansible_facts['os_family'] == 'Windows'
+
+    - name: Install Chocolatey if not installed
+      ansible.windows.win_shell: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force;
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+        iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      when: chocolatey_installed.failed and ansible_facts['os_family'] == 'Windows'
+
+    - name: Install Chocolatey packages
+      chocolatey.chocolatey.win_chocolatey:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - vscode
+        - git
+        - docker-desktop
+        - chromium
+        - firefox
+        - slack
+        - zoom
+        - microsoft-windows-terminal
+        - bitwarden
+        - viscosity
+        - teams
+        - jetbrains-mono
+      when: ansible_facts['os_family'] == 'Windows'
+
+    # - name: Add new Windows terminal profile

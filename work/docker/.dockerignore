@@ -50,3 +50,5 @@ init.sh
 playbooks/
 init_scripts/
 alt_dockerfiles/
+archive/
+windows/

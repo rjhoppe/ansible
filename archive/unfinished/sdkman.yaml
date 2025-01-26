@@ -1,0 +1,12 @@
+---
+- name: Installs sdkman on a UNIX machine
+  hosts: localhost
+  become: true
+  tasks:
+  # Might want to use the Comcast.sdkman role? -> wtf
+  # https://galaxy.ansible.com/ui/standalone/roles/Comcast/sdkman/documentation/
+    # - name: Install sdkman
+    #   ansible.builtin.shell:
+    #     cmd: 'curl -s "https://get.sdkman.io" | bash'
+    #     creates: "/home/linuxbrew/.linuxbrew/bin/brew"
+    #   when: ansible_facts['os_family'] == 'Debian' and bash_location == '/bin/bash'

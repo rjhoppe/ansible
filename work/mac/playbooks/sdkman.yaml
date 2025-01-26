@@ -1,0 +1,6 @@
+---
+# Whole playbook is unused because Python is installed during the init scripts
+- name: Installs sdkman on macOS
+  hosts: localhost
+  tasks:
+    - name: Install SDKMAN

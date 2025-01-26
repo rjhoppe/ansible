@@ -1,0 +1,5 @@
+---
+- name: Installs the JetBrains MonoNerd Font (MNF) on a Linux machine
+  hosts: localhost
+  become: true
+  tasks:

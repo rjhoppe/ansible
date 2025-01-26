@@ -1,0 +1,53 @@
+---
+- name: Installs Node and related packages
+  hosts: localhost
+  tasks:
+    - name: Download nvm install script
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh"
+        dest: "/tmp/nvm.sh"
+        mode: "0755"
+
+    - name: Install nvm
+      ansible.builtin.command:
+        cmd: "bash /tmp/nvm.sh"
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+      register: nvm_install
+
+    - name: Source NVM environment
+      ansible.builtin.shell:
+        cmd: |
+          source {{ ansible_env.HOME }}/.nvm/nvm.sh
+          nvm --version
+        executable: /bin/bash
+      register: nvm_check
+      changed_when: false
+
+    - name: Fail playbook if nvm is not installed
+      ansible.builtin.fail:
+        msg: "NVM installation failed"
+      when: nvm_check.rc != 0
+
+    - name: Install latest Node version
+      ansible.builtin.shell:
+        cmd: |
+          source {{ ansible_env.HOME }}/.nvm/nvm.sh
+          nvm install node
+        executable: /bin/bash
+      when: nvm_check.rc == 0
+      register: node_install
+      changed_when: node_install.rc == 0 and "'installing node' in node_install.stdout"
+
+    - name: Check if Node is installed
+      ansible.builtin.shell:
+        cmd: |
+          source {{ ansible_env.HOME }}/.nvm/nvm.sh
+          which node
+        executable: /bin/bash
+      register: node_check
+      changed_when: false
+
+    - name: Fail playbook if node not successfully installed
+      ansible.builtin.fail:
+        msg: "Node installation failed"
+      when: node_check.rc != 0

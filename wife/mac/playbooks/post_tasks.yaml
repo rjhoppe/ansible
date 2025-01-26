@@ -1,0 +1,16 @@
+---
+- name: Clean up after a Linux configuration
+  hosts: localhost
+  tasks:
+    - name: Clean up apt cache
+      ansible.builtin.package:
+        autoclean: true
+        autoremove: true
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Clean up homebrew
+      community.general.homebrew:
+        name: cleanup
+      when: ansible_facts['os_family'] in ['Debian', 'Darwin']
+
+    # Clean up the tmp folder?
