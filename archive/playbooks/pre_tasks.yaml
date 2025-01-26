@@ -1,8 +1,0 @@
----
-- name: Preparing package manager for Linux config
-  hosts: localhost
-  tasks:
-    - name: Update apt cache (Linux)
-      ansible.builtin.package:
-        update_cache: true
-      when: ansible_facts['os_family'] == 'Debian'
