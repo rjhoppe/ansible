@@ -1,0 +1,8 @@
+---
+- name: Installs Java JDK on Debian/Ubuntu
+  hosts: localhost
+  tasks:
+    - name: Install latest stable Java JDK
+      ansible.builtin.command: "sdk install java -default"
+      register: sdk_output
+      changed_when: sdk_output.rc != 0

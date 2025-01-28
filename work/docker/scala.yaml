@@ -1,0 +1,10 @@
+---
+- name: Installs Scala on Debian/Ubuntu
+  hosts: localhost
+  tasks:
+    - name: Install latest stable Scala
+      ansible.builtin.command: "sdk install scala"
+      register: sdk_output
+      changed_when: sdk_output.rc != 0
+
+## Install sbt

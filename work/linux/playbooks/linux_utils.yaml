@@ -15,4 +15,6 @@
         - htop
         - tree
         - gpg
+        - zip
+        - unzip
       when: ansible_facts['os_family'] == 'Debian'

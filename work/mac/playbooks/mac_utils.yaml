@@ -23,6 +23,8 @@
         - htop
         - tree
         - coreutils
+        - zip
+        - unzip
       when: ansible_facts['os_family'] == 'Darwin'
 
     - name: Check if XCode is installed (macOS)

@@ -9,9 +9,6 @@
         mode: "0755"
       when: ansible.ansible_facts['os_family'] == 'Debian'
 
-    # - name: Download pnpm installation script (Docker)
-    # https://pnpm.io/installation
-    # when step for checking for Docker container?
 
     - name: Run pnpm installation script
       ansible.builtin.command:
