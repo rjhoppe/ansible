@@ -1,0 +1,28 @@
+---
+- name: Installs Node and related packages
+  hosts: localhost
+  tasks:
+    - name: Download pnpm installation script (Linux)
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh"
+        dest: "/tmp/pnpm.sh"
+        mode: "0755"
+      when: ansible.ansible_facts['os_family'] == 'Debian'
+
+    - name: Run pnpm installation script
+      ansible.builtin.command:
+        cmd: "sh /tmp/pnpm.sh"
+        creates: "/usr/local/bin/pnpm"
+      when: ansible.ansible_facts['os_family'] == 'Debian'
+
+    - name: Install pnpm (macOS)
+      community.general.homebrew:
+        name: pnpm
+        state: present
+      when: ansible_facts['os_family'] == 'Darwin'
+
+    - name: Verify pnpm installation
+      ansible.builtin.command:
+        cmd: "pnpm --version"
+      register: pnpm_version
+      changed_when: false

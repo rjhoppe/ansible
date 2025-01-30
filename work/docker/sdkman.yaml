@@ -1,0 +1,18 @@
+---
+- name: Installs SDKMAN on Debian/Ubuntu
+  hosts: localhost
+  tasks:
+    - name: Download SDKMan # noqa no-changed-when command-instead-of-module risky-shell-pipe
+      ansible.builtin.shell: "curl -s 'https://get.sdkman.io' | bash"
+      args:
+        executable: /bin/bash
+
+    - name: Install SDKMAN
+      ansible.builtin.command:
+        cmd: bash -c "source /root/.sdkman/bin/sdkman-init.sh && sdk version"
+      changed_when: false
+      register: sdkman_version
+
+    - name: Show SDKMAN version
+      ansible.builtin.debug:
+        msg: "sdkman version is {{ sdkman_version.stdout }}"

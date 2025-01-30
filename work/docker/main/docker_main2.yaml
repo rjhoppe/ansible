@@ -1,0 +1,8 @@
+# ---
+# - name: Apply Linux configuration to a new machine
+#   hosts: localhost
+
+# - name: Install VSCode
+#   ansible.builtin.import_playbook: vscode.yaml
+# - name: Install Slack
+#   ansible.builtin.import_playbook: slack.yaml

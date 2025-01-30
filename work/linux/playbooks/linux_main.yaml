@@ -20,6 +20,12 @@
   ansible.builtin.import_playbook: node.yaml
 - name: Install pnpm
   ansible.builtin.import_playbook: pnpm.yaml
+- name: Install SDKMAN
+  ansible.builtin.import_playbook: sdkman.yaml
+- name: Install Java
+  ansible.builtin.import_playbook: java.yaml
+- name: Install Scala
+  ansible.builtin.import_playbook: scala.yaml
 - name: Install VSCode
   ansible.builtin.import_playbook: vscode.yaml
 - name: Install Slack

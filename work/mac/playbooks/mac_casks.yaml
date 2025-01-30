@@ -24,6 +24,8 @@
         - bitwarden
         - docker
         - viscosity
+        - rectangle
+        - intellij-idea-ce
         - azure-data-studio
         - microsoft-teams
         - zoom
