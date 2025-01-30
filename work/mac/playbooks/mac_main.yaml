@@ -14,6 +14,12 @@
   ansible.builtin.import_playbook: go.yaml
 - name: Install Node
   ansible.builtin.import_playbook: node.yaml
+- name: Install SDKMAN
+  ansible.builtin.import_playbook: sdkman.yaml
+- name: Install Java
+  ansible.builtin.import_playbook: java.yaml
+- name: Install Scala
+  ansible.builtin.import_playbook: scala.yaml
 - name: Import .p10k.zsh config file
   ansible.builtin.import_playbook: p10k.yaml
 - name: Import .zshrc config file

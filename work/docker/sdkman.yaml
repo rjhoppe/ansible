@@ -9,14 +9,9 @@
 
     - name: Install SDKMAN
       ansible.builtin.command:
-        cmd: "source '{{ ansible_env.HOME }}/.sdkman/bin/sdkman-init.sh'"
+        cmd: bash -c "source /root/.sdkman/bin/sdkman-init.sh && sdk version"
       changed_when: false
-
-    - name: Get SDKMAN version
-      ansible.builtin.command:
-        cmd: "sdk version"
       register: sdkman_version
-      changed_when: false
 
     - name: Show SDKMAN version
       ansible.builtin.debug:
