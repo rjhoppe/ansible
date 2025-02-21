@@ -1,0 +1,13 @@
+---
+- name: Installs VSCode on Linux
+  hosts: localhost
+  tasks:
+    - name: Installing VSCode via snap
+      ansible.builtin.command:
+        cmd: snap install --classic code
+      register: snap_outcome
+      changed_when: snap_output.rc != 0
+
+    - name: Display VSCode installation result
+      ansible.builtin.debug:
+        msg: "{{ snap_outcome.stdout }}"

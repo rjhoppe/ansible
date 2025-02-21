@@ -5,3 +5,5 @@ unfinished/*
 legacy/*
 windows/
 archive/*
+personal/*
+.ansible/

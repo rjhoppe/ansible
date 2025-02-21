@@ -2,23 +2,46 @@
 - name: Installs VSCode on Linux
   hosts: localhost
   tasks:
+    - name: Install VSCode dependencies
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - libx11-xcb1
+        - libgconf-2-4
+        - libgtk-3-0
+        - libnotify4
+        - libnss3
+        - libxtst6
+        - libxss1
+
+    - name: Ensure /tmp directory exists
+      ansible.builtin.file:
+        path: /tmp/
+        state: directory
+        mode: '1777'
+
     - name: Download VSCode .deb package
       ansible.builtin.get_url:
         url: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
         dest: /tmp/vscode.deb
-        mode: "0644"
+        mode: "0664"
 
     - name: Verify that the .deb package is downloaded
       ansible.builtin.stat:
         path: /tmp/vscode.deb
       register: vscode_deb
-      failed_when: not vscode_deb.stat.exists
+
+    - name: Debug the result of file check
+      ansible.builtin.debug:
+        msg: "vscode.deb exists: {{ vscode_deb.stat.exists }}"
 
     - name: Install VSCode package
-      ansible.builtin.package:
-        name: /tmp/vscode.deb
-        state: present
+      ansible.builtin.command:
+        cmd: dpkg -i /tmp/vscode.deb
+      register: install_output
       become: true
+      changed_when: install_output.rc != 0
 
     - name: Clean up downloaded VSCode package
       ansible.builtin.file:

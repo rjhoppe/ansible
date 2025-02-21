@@ -1,0 +1,38 @@
+# ---
+# - name: Apply Linux configuration to a new machine
+#   hosts: localhost
+
+# - name: Run init
+#   ansible.builtin.import_playbook: pre_tasks.yaml
+# - name: Install Linux utils
+#   ansible.builtin.import_playbook: docker_utils.yaml
+# - name: Install zsh
+#   ansible.builtin.import_playbook: zsh.yaml
+# - name: Import .zshrc config file
+#   ansible.builtin.import_playbook: zshrc.yaml
+# - name: Install homebrew
+#   ansible.builtin.import_playbook: docker_homebrew.yaml
+# - name: Install tmux
+#   ansible.builtin.import_playbook: tmux.yaml
+# - name: Install Azure CLI
+#   ansible.builtin.import_playbook: azure.yaml
+# - name: Install Go
+#   ansible.builtin.import_playbook: go.yaml
+# - name: Install Node
+#   ansible.builtin.import_playbook: node.yaml
+# - name: Install npm and pnpm
+#   ansible.builtin.import_playbook: npm.yaml
+# - name: Install SDKMAN
+#   ansible.builtin.import_playbook: sdkman.yaml
+# - name: Install Java
+#   ansible.builtin.import_playbook: java.yaml
+# - name: Install Scala
+#   ansible.builtin.import_playbook: scala.yaml
+# - name: Install VSCode
+#   ansible.builtin.import_playbook: vscode.yaml
+# - name: Install Slack
+#   ansible.builtin.import_playbook: slack.yaml
+# - name: Import .p10k.zsh config file
+#   ansible.builtin.import_playbook: p10k.yaml
+# - name: Run cleanup
+#   ansible.builtin.import_playbook: post_tasks.yaml

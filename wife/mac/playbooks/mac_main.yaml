@@ -6,17 +6,5 @@
   ansible.builtin.import_playbook: mac_utils.yaml
 - name: Install macOS casks
   ansible.builtin.import_playbook: mac_casks.yaml
-- name: Install tmux
-  ansible.builtin.import_playbook: tmux.yaml
-- name: Install Azure CLI
-  ansible.builtin.import_playbook: azure.yaml
-- name: Install Go
-  ansible.builtin.import_playbook: go.yaml
-- name: Install Node
-  ansible.builtin.import_playbook: node.yaml
-- name: Import .p10k.zsh config file
-  ansible.builtin.import_playbook: p10k.yaml
-- name: Import .zshrc config file
-  ansible.builtin.import_playbook: zshrc.yaml
 - name: Run cleanup
   ansible.builtin.import_playbook: post_tasks.yaml
