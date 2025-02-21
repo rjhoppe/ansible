@@ -21,6 +21,13 @@
         - firefox
         - bitwarden
         - microsoft-teams
+        - microsoft-word
+        - microsoft-powerpoint
+        - microsoft-office
+        - webex
+        - google-drive
+        - inkscape
         - zoom
+        - adobe-acrobat-reader
       when: ansible_facts['os_family'] == 'Darwin'
       ignore_errors: true # noqa 204

@@ -5,15 +5,15 @@
     - name: Download Slack package for Ubuntu/Debian
       ansible.builtin.get_url:
         url: https://downloads.slack-edge.com/linux_releases/slack-desktop-4.27.145-0.1.amd64.deb
-        dest: /tmp/slack-desktop.deb
+        dest: /root/tmp/slack-desktop.deb
         mode: "0755"
 
     - name: Install Slack on Debian/Ubuntu
       ansible.builtin.package:
-        name: /tmp/slack-desktop.deb
+        name: /root/tmp/slack-desktop.deb
         state: present
 
     - name: Clean up downloaded Slack packages
       ansible.builtin.file:
-        path: /tmp/slack-desktop.deb
+        path: /root/tmp/slack-desktop.deb
         state: absent

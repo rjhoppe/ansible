@@ -1,0 +1,22 @@
+---
+- name: Installs Linux packages
+  hosts: localhost
+  tasks:
+    - name: Installs bare-bones VPS utils
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nano
+        - ca-certificates
+        - curl
+        - unattended-upgrades
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Debian specific packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - rsyslog
+      when: ansible_facts['distribution'] == "Debian"

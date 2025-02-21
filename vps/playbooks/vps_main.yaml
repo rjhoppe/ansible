@@ -1,0 +1,8 @@
+---
+- name: Apply VPS configuration to a new machine
+  hosts: localhost
+
+- name: Run VPS pre-tasks
+  ansible.builtin.import_playbook: pre_tasks.yaml
+- name: Install VPS utils
+  ansible.builtin.import_playbook: vps_utils.yaml

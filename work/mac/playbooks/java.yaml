@@ -1,0 +1,13 @@
+---
+- name: Installs Java JDK on macOS
+  hosts: localhost
+  tasks:
+    - name: Install latest stable Java JDK
+      ansible.builtin.command:
+        cmd: bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java"
+      register: java_version
+      changed_when: java_version.rc != 0
+
+    - name: Show Java version
+      ansible.builtin.debug:
+        msg: "Java version is {{ java_version.stdout }}"

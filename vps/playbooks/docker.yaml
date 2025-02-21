@@ -1,0 +1,5 @@
+---
+- name: Installs Docker on VPS
+  hosts: localhost
+  roles:
+    - geerlingguy.docker

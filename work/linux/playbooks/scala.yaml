@@ -1,0 +1,23 @@
+---
+- name: Installs Scala and sbt on Debian/Ubuntu
+  hosts: localhost
+  tasks:
+    - name: Install latest stable Scala
+      ansible.builtin.command:
+        cmd: bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install scala"
+      register: scala_version
+      changed_when: scala_version.rc != 0
+
+    - name: Show Scala version
+      ansible.builtin.debug:
+        msg: "Scala version is {{ scala_version.stdout }}"
+
+    - name: Install latest stable of sbt
+      ansible.builtin.command:
+        cmd: bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install sbt"
+      register: sbt_version
+      changed_when: sbt_version.rc != 0
+
+    - name: Show sbt version
+      ansible.builtin.debug:
+        msg: "sbt version is {{ sbt_version.stdout }}"
