@@ -12,8 +12,8 @@
         name: rickjhoppe
         state: present
         shell: /bin/bash
-        password: {}
-        home: ''
+        password: { }
+        home: '/Users/rickjhoppe'
         create_home: true
 
     - name: Give new user account sudo access

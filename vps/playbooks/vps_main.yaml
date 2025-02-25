@@ -6,3 +6,5 @@
   ansible.builtin.import_playbook: pre_tasks.yaml
 - name: Install VPS utils
   ansible.builtin.import_playbook: vps_utils.yaml
+- name: Install Docker
+  ansible.builtin.import_playbook: docker.yaml

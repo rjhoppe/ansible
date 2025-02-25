@@ -1,0 +1,22 @@
+---
+- name: Installs yabai for macOS
+  hosts: localhost
+  tasks:
+    - name: Installs the yabai window manager
+      ansible.builtin.shell:
+        cmd: "brew install koekeishiya/formulae/yabai"
+      args:
+        executable: /bin/zsh
+
+    - name: Grants yabai with appropriate permissions
+      anisble.builtin.shell:
+        cmd: 'echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai'
+      args:
+        executable: /bin/zsh
+
+    - name: Copy .yabairc config file to the local directory
+      ansible.builtin.copy:
+        src: files/.yabairc
+        dest: "{{ ansible_env.HOME }}/.yabairc"
+        remote_src: true
+        mode: "0644"

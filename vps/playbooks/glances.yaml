@@ -1,0 +1,12 @@
+---
+- name: Pulls and starts the Glances monitoring application
+  hosts: localhost
+  tasks:
+    - name: Pull and start Glances
+      community.docker.docker_container:
+        name: glances
+        state: started
+        image: nicolargo/glances
+        pull: true
+        ports:
+          - "61209:61209"

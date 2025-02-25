@@ -24,11 +24,10 @@
         - bitwarden
         - docker
         - viscosity
-        - rectangle
-        - intellij-idea-ce
-        - azure-data-studio
+        - intellij-idea-ces
         - microsoft-teams
         - zoom
         - font-jetbrains-mono
+        - font-hack-nerd-font
       when: ansible_facts['os_family'] == 'Darwin'
       ignore_errors: true # noqa 204

@@ -1,5 +1,5 @@
 # ---
-# - name: Apply Linux configuration to a new machine
+# - name: Apply full Linux configuration to a new machine
 #   hosts: localhost
 
 # - name: Run init

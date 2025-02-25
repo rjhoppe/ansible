@@ -1,3 +1,7 @@
 ---
 - name: geerlingguy.docker
   src: geerlingguy.docker
+- name: geerlingguy.pip
+  src: geerlingguy.pip
+- name: buluma.bootstrap
+  src: buluma.bootstrap

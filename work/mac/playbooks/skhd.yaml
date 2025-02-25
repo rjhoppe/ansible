@@ -1,0 +1,16 @@
+---
+- name: Installs skhd for macOS
+  hosts: localhost
+  tasks:
+    - name: Installs the skhd macro tool
+      ansible.builtin.shell:
+        cmd: "brew install koekeishiya/formulae/skhd"
+      args:
+        executable: /bin/zsh
+
+    - name: Copy .skhdrc config file to the local directory
+      ansible.builtin.copy:
+        src: files/.skhdrc
+        dest: "{{ ansible_env.HOME }}/.skhdrc"
+        remote_src: true
+        mode: "0644"

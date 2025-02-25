@@ -1,10 +1,5 @@
 ---
-- name: Installs and configures fail2ban
+- name: Installs Docker on VPS
   hosts: localhost
-  tasks:
-    - name: Installs fail2ban
-      ansible.builtin.package:
-        name: fail2ban
-        state: present
-
-# Add jail.conf and other files
+  roles:
+    - role: buluma.bootstrap

@@ -8,6 +8,7 @@
         state: present
       loop:
         - nano
+        - ufw
         - ca-certificates
         - curl
         - unattended-upgrades

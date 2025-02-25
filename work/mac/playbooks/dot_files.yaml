@@ -1,0 +1,31 @@
+---
+- name: Nano syntax hightlighting
+  hosts: localhost
+  tasks:
+    - name: Copy .zshrc config file to the local directory
+      ansible.builtin.copy:
+        src: files/.zshrc
+        dest: "{{ ansible_env.HOME }}/.zshrc"
+        remote_src: true
+        mode: "0644"
+
+    - name: Copy .nanorc config file to the local directory
+      ansible.builtin.copy:
+        src: files/.nanorc
+        dest: "{{ ansible_env.HOME }}/.nanorc"
+        remote_src: true
+        mode: "0644"
+
+    - name: Copy .skhdrc config file to the local directory
+      ansible.builtin.copy:
+        src: files/.skhdrc
+        dest: "{{ ansible_env.HOME }}/.skhdrc"
+        remote_src: true
+        mode: "0644"
+
+    - name: Copy .yabairc config file to the local directory
+      ansible.builtin.copy:
+        src: files/.yabairc
+        dest: "{{ ansible_env.HOME }}/.yabairc"
+        remote_src: true
+        mode: "0644"

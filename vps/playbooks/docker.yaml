@@ -1,5 +1,11 @@
 ---
 - name: Installs Docker on VPS
   hosts: localhost
+
+  vars:
+    pip_install_packages:
+      - name: docker
+
   roles:
+    - geerlingguy.pip
     - geerlingguy.docker
